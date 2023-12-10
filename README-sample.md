@@ -53,3 +53,18 @@ This is a continuing task.
 - Show the plot of increasing returns over time
 - Show a few extra plots to highlight the benefits of the RL approach (e.g. earned revenue compared with a random pricing method, the probability of the average speed of vehicles in the priority lane reaching less than 50 miles/hour)
 
+# Blackjack Agent to Maximize reward(money)!
+## Project Summary
+In the world of gambling, blackjack is a very popular card game. We propose an agent that can try and beat the casino by earning a lot of reward(money). The game is mostly luck, but with a bit a statistics, the odds for a person to beat the casino becoming slightly higher.
+
+The dealer/casino will have a simple strategy of just hitting(getting more cards) until it reaches either a number that is greater than 21, or until it reaches a number that we consider a valid stopping point. For a valid stopping point for a dealer/casino, it will stop when its cards add up to x, where 17 <= x >= 21. We also define that if a dealer gets a soft 17 i.e (A,6), the dealer will also stop. 
+
+For the agent, we will have it randomly pick options: Double, Hit, Stand, Split. It will learn when to stop or when to hit, but if it reaches a number greater than 21, the agent losses. The agent will also have a little bit of a tricky strategy where it will count cards and understand the propabilities of potential cards to pop up. With "coutning cards", the agent will pick it's actions accordingly.
+
+## State Space
+Simplified:
+    The Game will have already started, and the cards will be dealt one by one, updating "counting cards", 
+
+    | Num | Observation                                         | Min | Max |
+    |-----|-----------------------------------------------------|-----|-----|
+
