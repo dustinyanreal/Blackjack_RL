@@ -39,6 +39,10 @@ If we double:
 
 ## Starting State [if applicable]
 <!-- See the Cart Pole Env example https://gymnasium.farama.org/environments/classic_control/cart_pole/ -->
+The starting state will depend on what the player has and what the dealer can see.
+    For a player, we can see the 32 different states it can achive.
+    For a dealer, we will see 10 states
+    and we will also have a state for ACES to see if they are usable.
 
 ## Episode End [if applicable]
 <!-- See the Cart Pole Env example https://gymnasium.farama.org/environments/classic_control/cart_pole/ -->
