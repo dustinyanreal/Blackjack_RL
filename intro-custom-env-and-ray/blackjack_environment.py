@@ -50,14 +50,17 @@ def compare(a, b):
 
 def draw_card(np_random):
     card = int(np_random.choice(deck))
-    shuffle = check_shuffle()
-    return card, shuffle
+    deck.remove(card)
+    #shuffle = check_shuffle()
+    return card #shuffle
 
 def draw_hand(np_random):
     card1 = int(np_random.choice(deck))
+    deck.remove(card1)
     card2 = int(np_random.choice(deck))
-    shuffle = check_shuffle()
-    return [card1, card2], shuffle
+    deck.remove(card2)
+    #shuffle = check_shuffle()
+    return [card1, card2] #, shuffle
 
 def is_ace(hand):
     return 1 in hand and sum(hand) + 10 <= 21
@@ -80,36 +83,40 @@ class BlackJackEnv(gym.Env):
     def __init__(self, natural=False):
 
         self.action_space = spaces.Discrete(3)
-        self.observatuib_space = spaces.Tuple(
+        self.observation_space = spaces.Tuple(
             (spaces.Discrete(32), spaces.Discrete(11), spaces.Discrete(2))
         )
         self.natural = natural
 
     def step(self, action):
-        shuffle_next_turn = False
+        #shuffle_next_turn = False
+        terminated = False
         assert self.action_space.contains(action)
+        if is_blackjack(self.player):
+            action = 1
         if action == 2: #double
             terminated = True
-            card, shuffle = draw_card(self.np_random)
-            if shuffle:
-                shuffle_next_turn = True
+            card = draw_card(self.np_random)
+            #if shuffle:
+            #    shuffle_next_turn = True
             self.player.append(card)
             if is_bust(self.player):
                 reward = -2.0
             else:
                 while sum_hand(self.dealer) < 17:
-                    card, shuffle = draw_card(self.np_random)
-                    if shuffle:
-                        shuffle_next_turn = True
+                    card = draw_card(self.np_random)
+                    #if shuffle:
+                    #    shuffle_next_turn = True
                     self.dealer.append(card)
                 reward = compare(score(self.player), score(self.dealer))
                 reward *= 2
         elif action == 1: #hit
-            card, shuffle = draw_card(self.np_random)
-            if shuffle:
-                shuffle_next_turn = True
+            card = draw_card(self.np_random)
+            #if shuffle:
+            #    shuffle_next_turn = True
             self.player.append(card)
             if is_bust(self.player):
+                terminated = True
                 reward = -1.0
             else:
                 terminated = False
@@ -117,25 +124,32 @@ class BlackJackEnv(gym.Env):
         elif action == 0: #stand
             terminated = True
             while sum_hand(self.dealer) < 17:
-                card, shuffle = draw_card(self.np_random)
-                if shuffle:
-                    shuffle_next_turn = True
+                card = draw_card(self.np_random)
+                #if shuffle:
+                #    shuffle_next_turn = True
                 self.dealer.append(card)
             reward = compare(score(self.player), score(self.dealer))
-        else: #blackjack
-            reward = 1.5
+            if is_blackjack(self.player) and is_blackjack(self.dealer):
+                reward = 0.0
+            elif is_blackjack(self.player) and not is_blackjack(self.dealer):
+                reward = 1.5
 
-        if shuffle_next_turn:
-            self.reset()
+        if terminated:
+            if check_shuffle():
+                deck = original_deck
 
-    def __get_obs(self):
+        return self._get_obs(), reward, terminated, False, {}
+
+    def _get_obs(self):
         return (sum_hand(self.player), self.dealer[0], is_ace(self.player))
     
-    def reset(self, seed: Optional[int] = None, options: Optional[dict] = None):
+    def reset(self, *, seed: Optional[int] = None, options: Optional[dict] = None):
         super().reset(seed=seed)
         self.dealer = draw_hand(self.np_random)
         self.player = draw_hand(self.np_random)
 
-        _, dealer_card_value, _ = self.__get_obs()
+        _, dealer_card_value, _ = self._get_obs()
 
-        deck = original_deck
+        #deck = original_deck
+
+        return self._get_obs(), {}

@@ -51,4 +51,8 @@ For this environment, we will end the episode if one of the followin occur:
     2. If the episode length is greater than 500, we don't want to sit at a blackjack table forever!
 
 ## Results
+The results I recieved were not what I wanted. When I ran my environment without any sort of training, My results were bad. The reward at the end was always negative. Close to the amount of steps I ran.
+When I trained an agent with PPO (Proximal Policy Optimization), I saw a huge increase in performance. Training on 200 different episodes and running my agent with the same amount of steps 200, I saw that the cumulative reward sum to a negative number closer to 0. My cumulative reward averaged around -5, which is really good to compared to -100. With more training, I could see the agent averaging +5-10.
+
+Since training takes too long for my device I wasn't able to run many tests to see if I could achieve what I wanted.
 
