@@ -22,14 +22,14 @@ algo = ppo.PPO(env=BlackJackEnv, config={
 })
 
 
-for i in range(250):
+for i in range(500):
     print(i)
     algo.train()
 
 state, _ = env.reset()
 sum_rewards = 0
 
-for i in range(200):
+for i in range(500):
     action = algo.compute_single_action(state)
     state, reward, terminated, _, _, = env.step(action)
     sum_rewards += reward

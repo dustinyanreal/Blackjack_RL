@@ -50,15 +50,15 @@ def compare(a, b):
 
 def draw_card(np_random):
     card = int(np_random.choice(deck))
-    deck.remove(card)
+    #deck.remove(card)
     #shuffle = check_shuffle()
     return card #shuffle
 
 def draw_hand(np_random):
     card1 = int(np_random.choice(deck))
-    deck.remove(card1)
+    #deck.remove(card1)
     card2 = int(np_random.choice(deck))
-    deck.remove(card2)
+    #deck.remove(card2)
     #shuffle = check_shuffle()
     return [card1, card2] #, shuffle
 

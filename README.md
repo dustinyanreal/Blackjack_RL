@@ -52,7 +52,7 @@ For this environment, we will end the episode if one of the followin occur:
 
 ## Results
 The results I recieved were not what I wanted. When I ran my environment without any sort of training, My results were bad. The reward at the end was always negative. Close to the amount of steps I ran.
-When I trained an agent with PPO (Proximal Policy Optimization), I saw a huge increase in performance. Training on 200 different episodes and running my agent with the same amount of steps 200, I saw that the cumulative reward sum to a negative number closer to 0. My cumulative reward averaged around -5, which is really good to compared to -100. With more training, I could see the agent averaging +5-10.
-
+When I trained an agent with PPO (Proximal Policy Optimization), I saw a huge increase in performance. Training on 200 different episodes and running my agent with the same amount of steps 200, I saw that the cumulative reward sum to a negative number closer to 0. My cumulative reward averaged around -10, which is really good to compared to -100. With more training, I could see the agent averaging +5-10.
+Within the actual run of the environment, I could see that the agent gets a high positive, but then it will then slowly work its way down to the negatives.
 Since training takes too long for my device I wasn't able to run many tests to see if I could achieve what I wanted.
 
